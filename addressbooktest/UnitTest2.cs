@@ -52,8 +52,8 @@ namespace addressbooktest
             driver.FindElement(By.Name("pass")).Clear();
             driver.FindElement(By.Name("pass")).SendKeys("secret");
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
+            driver.FindElement(By.XPath("//*[@id='nav']/ul/li[3]/a")).Click();
             driver.FindElement(By.Name("new")).Click();
-            driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
             driver.FindElement(By.Name("group_name")).SendKeys("q");
             driver.FindElement(By.Name("group_header")).Click();
