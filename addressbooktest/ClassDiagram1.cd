@@ -1,58 +1,101 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="WebAddressbookTests.TestBase">
-    <Position X="1.75" Y="1.5" Width="1.5" />
+    <Position X="1.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAIAAAAAAAAAAAAATAAAAAAAAAABAAAAEAACA=</HashCode>
-      <FileName>TestBase.cs</FileName>
+      <HashCode>AAAAAAAAIAACAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>tests\TestBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="loginHelper" />
-      <Field Name="navigationHelper" />
-      <Field Name="groupHelper" />
+      <Field Name="applicationManager" />
     </ShowAsAssociation>
   </Class>
   <Class Name="WebAddressbookTests.GroupCretionTests" Collapsed="true">
-    <Position X="3" Y="4.25" Width="1.5" />
+    <Position X="3" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GroupCretionTests.cs</FileName>
+      <FileName>tests\GroupCretionTests.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.GroupRemovalTests" Collapsed="true">
-    <Position X="0.5" Y="4.25" Width="1.5" />
+    <Position X="0.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GroupRemovalTests.cs</FileName>
+      <FileName>tests\GroupRemovalTests.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.LoginHelper" Collapsed="true">
     <Position X="7.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAQAAAAAAA=</HashCode>
-      <FileName>LoginHelper.cs</FileName>
+      <FileName>appmanager\LoginHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.NavigationHelper" Collapsed="true">
     <Position X="6.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKA=</HashCode>
-      <FileName>NavigationHelper.cs</FileName>
+      <FileName>appmanager\NavigationHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.GroupHelper" Collapsed="true">
     <Position X="4.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABABAAAAAEAAAAAAAABEAAAAAAAAABAAAA=</HashCode>
-      <FileName>GroupHelper.cs</FileName>
+      <FileName>appmanager\GroupHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.HelperBase" Collapsed="true">
     <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>HelperBase.cs</FileName>
+      <FileName>appmanager\HelperBase.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="WebAddressbookTests.ApplicationManager">
+    <Position X="6.25" Y="5.25" Width="1.5" />
+    <AssociationLine Name="groupHelper" Type="WebAddressbookTests.GroupHelper" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.562" Y="5.25" />
+        <Point X="6.562" Y="4.316" />
+        <Point X="5.438" Y="4.316" />
+        <Point X="5.438" Y="3.941" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.89" Y="0.477" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="loginHelper" Type="WebAddressbookTests.LoginHelper" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.438" Y="5.25" />
+        <Point X="7.438" Y="4.338" />
+        <Point X="8.375" Y="4.338" />
+        <Point X="8.375" Y="2.191" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.098" Y="0.127" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="navigationHelper" Type="WebAddressbookTests.NavigationHelper" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7" Y="5.25" />
+        <Point X="7" Y="3.788" />
+        <Point X="7" Y="3.788" />
+        <Point X="7" Y="3.191" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.307" Y="0.11" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAABAAAAAAAAAAAAASAAAAAAAAAIBAAABEAACA=</HashCode>
+      <FileName>appmanager\ApplicationManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="groupHelper" />
+      <Field Name="loginHelper" />
+      <Field Name="navigationHelper" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
