@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace WebAddressbookTests
 {
-    class ContactData
+    public class ContactData
     {
         private string firstname;
         private string midlename;
@@ -34,11 +29,12 @@ namespace WebAddressbookTests
         private string secondaryhome = "bbb";
         private string secondarynotes = "ccc";
         
-        public ContactData(string firstname, string midlename, string lastname)
+        public ContactData(string firstname, string midlename, string lastname, string group)
         {
             this.firstname = firstname;
             this.midlename = midlename;
             this.lastname = lastname;
+            this.group = group;
         }
 
         public ContactData(string firstname, string midlename, string lastname, string birthdayday, string birthdaymonth, string birthdayyear)

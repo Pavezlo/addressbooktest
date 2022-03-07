@@ -13,7 +13,7 @@
   <Class Name="WebAddressbookTests.GroupCretionTests" Collapsed="true">
     <Position X="3" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>tests\GroupCretionTests.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -41,30 +41,19 @@
   <Class Name="WebAddressbookTests.GroupHelper" Collapsed="true">
     <Position X="4.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAABABAAAAAEAAAAAAAABEAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAIACAAABABAAAAAEABAAAQAABEEAAAAAAAABAAAA=</HashCode>
       <FileName>appmanager\GroupHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.HelperBase" Collapsed="true">
     <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>appmanager\HelperBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WebAddressbookTests.ApplicationManager">
+  <Class Name="WebAddressbookTests.ApplicationManager" Collapsed="true">
     <Position X="6.25" Y="5.25" Width="1.5" />
-    <AssociationLine Name="groupHelper" Type="WebAddressbookTests.GroupHelper" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="6.562" Y="5.25" />
-        <Point X="6.562" Y="4.316" />
-        <Point X="5.438" Y="4.316" />
-        <Point X="5.438" Y="3.941" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.89" Y="0.477" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="loginHelper" Type="WebAddressbookTests.LoginHelper" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="7.438" Y="5.25" />
@@ -87,15 +76,52 @@
         <Position X="-1.307" Y="0.11" />
       </MemberNameLabel>
     </AssociationLine>
+    <AssociationLine Name="groupHelper" Type="WebAddressbookTests.GroupHelper" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.562" Y="5.25" />
+        <Point X="6.562" Y="4.316" />
+        <Point X="5.438" Y="4.316" />
+        <Point X="5.438" Y="3.941" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.89" Y="0.477" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="contactHelper" Type="WebAddressbookTests.ContactHelper" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.562" Y="5.25" />
+        <Point X="7.562" Y="4.497" />
+        <Point X="10.5" Y="4.497" />
+        <Point X="10.5" Y="2.191" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.19" Y="0.16" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAEAABAAAAAAAAAAAAASAAAAAAAAAIBAAABEAACA=</HashCode>
+      <HashCode>AAAAAEAABAAAAAAACAAAAASAAAAAgAAAIBCAABEAACA=</HashCode>
       <FileName>appmanager\ApplicationManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="groupHelper" />
       <Field Name="loginHelper" />
       <Field Name="navigationHelper" />
+      <Field Name="groupHelper" />
+      <Field Name="contactHelper" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="WebAddressbookTests.ContactCreationTests" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>tests\ContactCreationTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebAddressbookTests.ContactHelper" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAIAAAAAAECAAQAAAAAAAAA=</HashCode>
+      <FileName>appmanager\ContactHelper.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

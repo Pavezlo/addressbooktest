@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace WebAddressbookTests.tests
+namespace WebAddressbookTests
 {
     [TestFixture]
     public class GroupModificationTests :TestBase
