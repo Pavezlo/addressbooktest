@@ -10,11 +10,11 @@
       <Field Name="applicationManager" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="WebAddressbookTests.GroupCretionTests" Collapsed="true">
+  <Class Name="WebAddressbookTests.GroupCreationTests" Collapsed="true">
     <Position X="3" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>tests\GroupCretionTests.cs</FileName>
+      <FileName>tests\GroupCreationTests.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.GroupRemovalTests" Collapsed="true">
@@ -119,7 +119,7 @@
   <Class Name="WebAddressbookTests.ContactHelper" Collapsed="true">
     <Position X="9.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAAAAAAAAAAIAAAAAAECAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAQAAAAIAAgAAAAABAIIAAAgAEAAAQAAABAAAAA=</HashCode>
       <FileName>appmanager\ContactHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
