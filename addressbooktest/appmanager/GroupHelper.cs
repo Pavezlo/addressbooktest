@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
+using System;
 
 namespace WebAddressbookTests
 {
@@ -19,6 +15,17 @@ namespace WebAddressbookTests
             InitNewGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
+            ReturnToGroupPage();
+            return this;
+        }
+
+        public GroupHelper Modify(int p, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(p);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
             ReturnToGroupPage();
             return this;
         }
@@ -73,6 +80,18 @@ namespace WebAddressbookTests
         public GroupHelper InitNewGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
+            return this;
+        }
+
+        public GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public GroupHelper InitGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
             return this;
         }
     }
