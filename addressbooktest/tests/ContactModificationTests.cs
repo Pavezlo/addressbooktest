@@ -3,14 +3,17 @@
 namespace WebAddressbookTests
 {
     [TestFixture]
-    class ContactModificationTests : TestBase
+    class ContactModificationTests : AuthTestBase
     {
         [Test]
         public void ContactModificationTest()
         {
-            ContactData contactData = new ContactData("Garyda", "Oldmanda", "Newmanda", "zzzda");
-            contactData.Address = "st. Pushkina da";
-            applicationManager.Contact.Modification(contactData, 1);
+            ContactData contactData1 = new ContactData("", "", "c", "zzz");
+            contactData1.Address = "st. Pushkina";
+            applicationManager.Contact.Create(contactData1);
+            ContactData contactData2 = new ContactData("", "", "c", "zzz");
+            contactData2.Address = "st. Pushkina da";
+            applicationManager.Contact.Modification(contactData2, "c");
         }
     }
 }
