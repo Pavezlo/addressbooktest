@@ -20,6 +20,20 @@ namespace WebAddressbookTests
 
         public GroupHelper Modify(int p, GroupData newData)
         {
+            if (!GroupCheck())
+            {
+                GroupData group = new GroupData("aaa");
+                group.Header = "ddd";
+                group.Footer = "ddd";
+                Create(group);
+                manager.Navigator.GoToGroupsPage();
+                SelectGroup(p);
+                InitGroupModification();
+                FillGroupForm(newData);
+                SubmitGroupModification();
+                ReturnToGroupPage();
+                return this;
+            }
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             InitGroupModification();
@@ -31,11 +45,23 @@ namespace WebAddressbookTests
 
         public GroupHelper Remove(int p)
         {
+            if (!GroupCheck())
+            {
+                GroupData group = new GroupData("aaa");
+                group.Header = "ddd";
+                group.Footer = "ddd";
+                Create(group);
+            }
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupPage();
             return this;
+        }
+
+        public bool GroupCheck()
+        {
+            return IsElementPresent(By.XPath("//input[@type='checkbox']"));
         }
 
 

@@ -5,8 +5,7 @@ namespace WebAddressbookTests
 {
     [TestFixture]
     public class GroupRemovalTests : AuthTestBase
-    {
-        
+    {        
         [Test]
         public void GroupRemovalTest()
         {
