@@ -21,6 +21,7 @@ namespace WebAddressbookTests
         {
             driver = new ChromeDriver();
             baseURL = "http://localhost/addressbook";
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
             loginHelper = new LoginHelper(this);
             navigationHelper = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);

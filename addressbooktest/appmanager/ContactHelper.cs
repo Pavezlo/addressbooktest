@@ -19,26 +19,15 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Remove(string a)
+        public ContactHelper Remove(int a)
         {
-            if (!ContactCheck())
-            {
-                ContactData contactData = new ContactData("", "", "b", "aaa");
-                contactData.Address = "";
-                Create(contactData);
-            }
             ClickEditContact(a);
             ClicRemoveContact();
             return this;
         }
 
-        public ContactHelper Modification(ContactData contactData, string a)
+        public ContactHelper Modification(ContactData contactData, int a)
         {
-            if (!ContactCheck())
-            {
-                ContactData contactData1 = new ContactData("", "", "c", "zzz");
-                Create(contactData1);
-            }
             ClickEditContact(a);
             ModificationContactInformation(contactData);
             ClickModificationContact();
@@ -138,9 +127,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper ClickEditContact(string v)
+        public ContactHelper ClickEditContact(int v)
         {
-            string xpath = "//td[text()='" + v + "']/../..//img[@title='Edit']/..";
+            string xpath = "//tbody//input[@type='checkbox'][" + v + "]/../..//img[@title='Edit']/..";
             driver.FindElement(By.XPath(xpath)).Click();
             return this;
         }

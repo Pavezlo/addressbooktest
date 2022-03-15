@@ -41,7 +41,7 @@ namespace WebAddressbookTests
             { 
                 driver.FindElement(By.XPath("//a[text()='Logout']")).Click();
             }
-            
+            driver.FindElement(By.Name("user"));
         }
     }
 }

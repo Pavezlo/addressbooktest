@@ -8,10 +8,13 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            ContactData contactData = new ContactData("", "", "b", "aaa");
-            contactData.Address = "";
-            applicationManager.Contact.Create(contactData);
-            applicationManager.Contact.Remove("b");
+            if (!applicationManager.Contact.ContactCheck())
+            {
+                ContactData contactData = new ContactData("", "", "b", "aaa");
+                contactData.Address = "";
+                applicationManager.Contact.Create(contactData);
+            }
+            applicationManager.Contact.Remove(1);
         }
     }
 }
