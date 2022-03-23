@@ -39,6 +39,7 @@ namespace WebAddressbookTests
         {
             return "name=" + Name;
         }
+
         public int CompareTo (GroupData other)
         {
             if (Object.ReferenceEquals(other, null))

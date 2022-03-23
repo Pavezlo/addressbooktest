@@ -23,6 +23,7 @@ namespace WebAddressbookTests
         {
             ClickEditContact(a);
             ClicRemoveContact();
+            ClickLogoAddressBook();
             return this;
         }
 
@@ -31,13 +32,14 @@ namespace WebAddressbookTests
             ClickEditContact(a);
             ModificationContactInformation(contactData);
             ClickModificationContact();
+            ClickGoToHomePage();
             return this;
         }
 
         public ContactHelper ClickEnterContact()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[21]")).Click();
-            driver.FindElement(By.LinkText("home page")).Click();
+            ClickGoToHomePage();
             return this;
         }
 
@@ -140,9 +142,46 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper ClickGoToHomePage()
+        {
+            driver.FindElement(By.XPath("//a[text()='home page']")).Click();
+            return this;
+        }
+
+        public ContactHelper ClickLogoAddressBook()
+        {
+            driver.FindElement(By.XPath("//img[@title='Addressbook']/..")).Click();
+            return this;
+        }
+
         public bool ContactCheck()
         {
             return IsElementPresent(By.XPath("//tbody//input[@type='checkbox']"));
+        }        
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            List<string> lastName = new List<string>();
+            List<string> firstName = new List<string>();
+            ICollection<IWebElement> elementsLastName = driver.FindElements(By.XPath("//tr[@name='entry']/td[2]"));
+            ICollection<IWebElement> elementsFirstName = driver.FindElements(By.XPath("//tr[@name='entry']/td[3]"));
+            
+            foreach(IWebElement element in elementsLastName)
+            {
+                lastName.Add(element.Text);
+            }
+
+            foreach (IWebElement element in elementsFirstName)
+            {
+                firstName.Add(element.Text);
+            }
+
+            for (int i = 0; i < lastName.Count; i++)
+            {
+                contacts.Add(new ContactData(firstName[i], lastName[i]));
+            }
+            return contacts;
         }
     }
 }
