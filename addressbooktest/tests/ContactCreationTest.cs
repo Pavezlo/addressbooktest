@@ -15,6 +15,8 @@ namespace WebAddressbookTests
             contactData.Address = "st. Pushkina";
             List<ContactData> oldContact = applicationManager.Contact.GetContactList();
             applicationManager.Contact.Create(contactData);
+            Assert.AreEqual(oldContact.Count + 1, applicationManager.Contact.GetContactCount());
+
             List<ContactData> newContact = applicationManager.Contact.GetContactList();
             oldContact.Add(contactData);
             oldContact.Sort();

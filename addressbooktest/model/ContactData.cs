@@ -4,9 +4,8 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
+
         private string midlename = "123";
-        private string lastname;
         private string nickname = "noname";
         private string title = "title";
         private string company = "gmail";
@@ -64,39 +63,29 @@ namespace WebAddressbookTests
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
         public ContactData(string firstname, string midlename, string lastname, string group)
         {
-            this.firstname = firstname;
+            Firstname = firstname;
             this.midlename = midlename;
-            this.lastname = lastname;
+            Lastname = lastname;
             this.group = group;
         }
 
         public ContactData(string firstname, string midlename, string lastname, string birthdayday, string birthdaymonth, string birthdayyear)
         {
-            this.firstname = firstname;
+            Firstname = firstname;
             this.midlename = midlename;
-            this.lastname = lastname;
+            Lastname = lastname;
             this.birthdayday = birthdayday;
             this.birthdaymonth = birthdaymonth;
             this.birthdayyear = birthdayyear;
         }
 
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
+        public string Firstname { get; set; }
 
         public string Midlename
         {
@@ -110,17 +99,7 @@ namespace WebAddressbookTests
             }
         }
 
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
+        public string Lastname { get; set; }
 
         public string Nickname
         {
@@ -386,5 +365,7 @@ namespace WebAddressbookTests
                 secondarynotes = value;
             }
         }
+
+        public string Id { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace WebAddressbookTests
             InitNewContact();
             EditContactInformation(contactData);
             ClickEnterContact();
+            ClickGoToHomePage();
             return this;
         }
 
@@ -39,7 +40,7 @@ namespace WebAddressbookTests
         public ContactHelper ClickEnterContact()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[21]")).Click();
-            ClickGoToHomePage();
+            contactCache = null;
             return this;
         }
 
@@ -126,6 +127,7 @@ namespace WebAddressbookTests
         public ContactHelper ClicRemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -139,6 +141,7 @@ namespace WebAddressbookTests
         public ContactHelper ClickModificationContact()
         {
             driver.FindElement(By.XPath("//input[@value='Update'][2]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -157,31 +160,51 @@ namespace WebAddressbookTests
         public bool ContactCheck()
         {
             return IsElementPresent(By.XPath("//tbody//input[@type='checkbox']"));
-        }        
+        }
+
+        private List<ContactData> contactCache = null;
 
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            List<string> lastName = new List<string>();
-            List<string> firstName = new List<string>();
-            ICollection<IWebElement> elementsLastName = driver.FindElements(By.XPath("//tr[@name='entry']/td[2]"));
-            ICollection<IWebElement> elementsFirstName = driver.FindElements(By.XPath("//tr[@name='entry']/td[3]"));
-            
-            foreach(IWebElement element in elementsLastName)
+            if (contactCache == null)
             {
-                lastName.Add(element.Text);
-            }
+                contactCache = new List<ContactData>();
+                List<string> lastName = new List<string>();
+                List<string> firstName = new List<string>();
+                List<string> idContact = new List<string>();
+                ICollection<IWebElement> elementsLastName = driver.FindElements(By.XPath("//tr[@name='entry']/td[2]"));
+                ICollection<IWebElement> elementsFirstName = driver.FindElements(By.XPath("//tr[@name='entry']/td[3]"));
+                ICollection<IWebElement> elementsIdContact = driver.FindElements(By.XPath("//tr//input[@type='checkbox']"));
 
-            foreach (IWebElement element in elementsFirstName)
-            {
-                firstName.Add(element.Text);
-            }
+                foreach (IWebElement element in elementsLastName)
+                {
+                    lastName.Add(element.Text);
+                }
 
-            for (int i = 0; i < lastName.Count; i++)
-            {
-                contacts.Add(new ContactData(firstName[i], lastName[i]));
+                foreach (IWebElement element in elementsFirstName)
+                {
+                    firstName.Add(element.Text);
+                }
+                
+                foreach (IWebElement element in elementsIdContact)
+                {
+                    idContact.Add(element.GetAttribute("value"));
+                }
+
+                for (int i = 0; i < lastName.Count; i++)
+                {
+                    contactCache.Add(new ContactData(firstName[i], lastName[i])
+                    {
+                        Id = idContact[i]
+                    }) ;
+                }
             }
-            return contacts;
+            return new List<ContactData>(contactCache);
+        }
+
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
         }
     }
 }
