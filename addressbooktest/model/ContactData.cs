@@ -58,7 +58,16 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return Firstname.CompareTo(other.Firstname);
+            //return Firstname.CompareTo(other.Firstname);
+            var lastCompare = Lastname.CompareTo(other.Lastname);
+            if (lastCompare == 0)
+            {
+                return Firstname.CompareTo(other.Firstname);
+            }
+            else
+            {
+                return lastCompare;
+            }
         }
 
         public ContactData(string firstname, string lastname)
