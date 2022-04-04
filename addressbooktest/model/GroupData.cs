@@ -41,8 +41,7 @@ namespace WebAddressbookTests
             return Name.CompareTo(other.Name);
         }
 
-        public string Name { get; set; }
-        
+        public string Name { get; set; }        
 
         public string Header { get; set;}
 

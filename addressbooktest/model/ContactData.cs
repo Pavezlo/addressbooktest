@@ -206,6 +206,37 @@ namespace WebAddressbookTests
             }
         }
 
+        private string allPhones;
+
+        public string AllPhones 
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(Telephonehome) + CleanUp(Telephonemobile) + CleanUp(Telephonework) + CleanUp(Secondaryhome)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        
+        }
+
+        private string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+
         public string Email
         {
             get

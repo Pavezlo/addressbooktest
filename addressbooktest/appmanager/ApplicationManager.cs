@@ -8,15 +8,11 @@ namespace WebAddressbookTests
     public class ApplicationManager
     {
 
-        protected IWebDriver driver;
         protected string baseURL;
 
-        protected LoginHelper loginHelper;
-        protected NavigationHelper navigationHelper;
-        protected GroupHelper groupHelper;
-        protected ContactHelper contactHelper;
         private static ThreadLocal <ApplicationManager> applicationManager = new ThreadLocal<ApplicationManager>();
 
+        #region Constructures
         private ApplicationManager()
         {
             driver = new ChromeDriver();
@@ -27,6 +23,7 @@ namespace WebAddressbookTests
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
         }
+        #endregion
 
         public static ApplicationManager GetInstance()
         {
@@ -52,6 +49,8 @@ namespace WebAddressbookTests
             }
         }
 
+        #region Driver
+        protected IWebDriver driver;
         public IWebDriver Driver
         {
             get
@@ -59,7 +58,10 @@ namespace WebAddressbookTests
                 return driver;
             }
         }
+        #endregion
 
+        #region Auth
+        protected LoginHelper loginHelper;
         public LoginHelper Auth
         {
             get
@@ -67,7 +69,10 @@ namespace WebAddressbookTests
                 return loginHelper;
             }
         }
+        #endregion
 
+        #region Navigator
+        protected NavigationHelper navigationHelper;
         public NavigationHelper Navigator
         {
             get
@@ -75,7 +80,10 @@ namespace WebAddressbookTests
                 return navigationHelper;
             }
         }
+        #endregion
 
+        #region Group
+        protected GroupHelper groupHelper;
         public GroupHelper Group
         {
             get
@@ -83,7 +91,10 @@ namespace WebAddressbookTests
                 return groupHelper;
             }
         }
+        #endregion
 
+        #region Contact
+        protected ContactHelper contactHelper;
         public ContactHelper Contact
         {
             get
@@ -91,6 +102,6 @@ namespace WebAddressbookTests
                 return contactHelper;
             }
         }
- 
+        #endregion
     }
 }
