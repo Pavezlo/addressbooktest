@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -212,11 +213,13 @@ namespace WebAddressbookTests
             string lastName = cells[1].Text;
             string firstName = cells[2].Text;
             string address = cells[3].Text;
+            string allEmails = cells[4].Text;
             string allPhones = cells[5].Text;
             
             return new ContactData(firstName, lastName)
             {
                 Address = address,
+                AllEmails = allEmails,
                 AllPhones = allPhones
             };
         }
@@ -224,7 +227,7 @@ namespace WebAddressbookTests
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
-            ClickEditContact(0);
+            ClickEditContact(index);
 
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
@@ -235,19 +238,34 @@ namespace WebAddressbookTests
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
             string secondhomePhone = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 
+            string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
             return new ContactData(firstName, lastName)
             {
                 Address = address,
                 Telephonehome = homePhone,
                 Telephonemobile = mobilePhone,
                 Telephonework = workPhone,
-                Secondaryhome = secondhomePhone
+                Secondaryhome = secondhomePhone,
+                Email = email1,
+                Email2 = email2,
+                Email3 = email3
             };
         }
 
         public int GetContactCount()
         {
             return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
         }
     }
 }
