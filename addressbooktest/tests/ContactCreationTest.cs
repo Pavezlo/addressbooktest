@@ -7,12 +7,24 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : AuthTestBase
     {
-        [Test]
-        public void ContactCreationTest()
+        public static IEnumerable<ContactData> RandomContactDataProvider()
         {
-            
-            ContactData contactData = new ContactData("Gary","Oldman","Newman","zzz");
-            contactData.Address = "Pushkinaga";
+            List<ContactData> contacts = new List<ContactData>();
+            for (int i = 0; i < 5; i++)
+            {
+                contacts.Add(new ContactData(GenerateRandomString(30), GenerateRandomString(30))
+                {
+                    Midlename = GenerateRandomString(30),
+                    Address = GenerateRandomString(30)
+                });
+            }
+
+            return contacts;
+        }
+        
+        [Test, TestCaseSource("RandomContactDataProvider")]
+        public void ContactCreationTest(ContactData contactData)
+        {
             List<ContactData> oldContact = applicationManager.Contact.GetContactList();
             applicationManager.Contact.Create(contactData);
             Assert.AreEqual(oldContact.Count + 1, applicationManager.Contact.GetContactCount());
