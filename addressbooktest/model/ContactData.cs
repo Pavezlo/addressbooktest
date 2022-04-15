@@ -6,7 +6,7 @@ namespace WebAddressbookTests
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
 
-        private string midlename = "123";
+        private string midlename = "ab";
         private string nickname = "noname";
         private string title = "title";
         private string company = "gmail";

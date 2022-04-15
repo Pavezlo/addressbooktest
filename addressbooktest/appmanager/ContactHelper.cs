@@ -362,7 +362,7 @@ namespace WebAddressbookTests
 
             string address2 = ConvectInformationDetails(@"\r\n\r\n\w+\r\n\r\n", allInformationContact).Substring(4);
             string home2Telephone = ConvectInformationDetails(@"P:.\w+", allInformationContact).Substring(3);
-            string notes = ConvectInformationDetails(@"\w+$|(0)\w+$", allInformationContact);
+            string notes = ConvectInformationDetails(@"\w+$", allInformationContact);
 
             return new ContactData()
             {
