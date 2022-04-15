@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
@@ -224,7 +225,7 @@ namespace WebAddressbookTests
             };
         }
 
-        public ContactData GetContactInformationFromEditForm(int index)
+        public ContactData GetContactInformationFromEditFormForTabel(int index)
         {
             manager.Navigator.GoToHomePage();
             ClickEditContact(index);
@@ -236,11 +237,12 @@ namespace WebAddressbookTests
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-            string secondhomePhone = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 
             string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+            string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 
             return new ContactData(firstName, lastName)
             {
@@ -248,10 +250,72 @@ namespace WebAddressbookTests
                 Telephonehome = homePhone,
                 Telephonemobile = mobilePhone,
                 Telephonework = workPhone,
-                Secondaryhome = secondhomePhone,
                 Email = email1,
                 Email2 = email2,
-                Email3 = email3
+                Email3 = email3,                
+                Secondaryhome = phone2
+            };
+        }
+
+        public ContactData GetContactInformationFromEditFormForDetails(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            ClickEditContact(index);
+
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+
+            string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+
+            string bday = driver.FindElement(By.XPath("//select[@name='bday']/option[@selected='selected']")).Text;
+            string bmonth = driver.FindElement(By.XPath("//select[@name='bmonth']/option[@selected='selected']")).Text;
+            string byear = driver.FindElement(By.Name("byear")).GetAttribute("value");
+
+            string aday = driver.FindElement(By.XPath("//select[@name='aday']/option[@selected='selected']")).Text;
+            string amonth = driver.FindElement(By.XPath("//select[@name='amonth']/option[@selected='selected']")).Text;
+            string ayear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
+
+            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
+            string secondhomePhone = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
+
+            return new ContactData(firstName, lastName)
+            {
+                Midlename = middlename,
+                Nickname = nickname,
+                Company = company,
+                Title = title,
+                Address = address,
+                Telephonehome = homePhone,
+                Telephonemobile = mobilePhone,
+                Telephonework = workPhone,
+                Telephonefax = fax,
+                Email = email1,
+                Email2 = email2,
+                Email3 = email3,
+                Homepage = homepage,
+                Birthdayday = bday,
+                Birthdaymonth = bmonth,
+                Birthdayyear = byear,
+                Anniversaryday = aday,
+                Anniversarymonth = amonth,
+                Anniversaryyear = ayear,
+                Secondaryaddress = address2,
+                Secondaryhome = secondhomePhone,
+                Secondarynotes = notes
             };
         }
 
@@ -266,6 +330,61 @@ namespace WebAddressbookTests
             string text = driver.FindElement(By.TagName("label")).Text;
             Match m = new Regex(@"\d+").Match(text);
             return Int32.Parse(m.Value);
+        }
+
+        public ContactHelper ClickDetailsContact(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
+        public ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            ClickDetailsContact(index);
+            string allInformationContact = driver.FindElement(By.Id("content")).Text.Trim();
+
+            string fio = ConvectInformationDetails(@"^\w+.\w+.\w+|^\w+.\w+|^\w+", allInformationContact);
+            //nickname,company,title,address
+            string nickComTiAd = ConvectInformationDetails(@"\r\n\w+\r\n\w+\r\n\w+\r\n\w+\r\n", allInformationContact);
+
+            string homeTelephone = ConvectInformationDetails(@"H:.\w+", allInformationContact).Substring(3);
+            string mobileTelephone = ConvectInformationDetails(@"M:.\w+", allInformationContact).Substring(3);
+            string workTelephone = ConvectInformationDetails(@"W:.\w+", allInformationContact).Substring(3);
+            string faxTelephone = ConvectInformationDetails(@"F:.\w+", allInformationContact).Substring(3);
+
+            string emails = ConvectInformationDetails(@"\w+\@\w+.\w+\r\n\w+\@\w+.\w+\r\n\w+\@\w+.\w+\r\n|\w+\@\w+.\w+\r\n\w+\@\w+.\w+\r\n|\w+\@\w+.\w+\r\n", allInformationContact);
+            string homepage = ConvectInformationDetails(@"Homepage:\r\n\w+.\w+", allInformationContact).Substring(11);
+            string birthday = ConvectInformationDetails(@"Birthday.\d+. \w+ \d+", allInformationContact);
+            string anniversary = ConvectInformationDetails(@"Anniversary.\d+. \w+ \d+", allInformationContact);
+
+            string address2 = ConvectInformationDetails(@"\r\n\r\n\w+\r\n\r\n", allInformationContact).Substring(4);
+            string home2Telephone = ConvectInformationDetails(@"P:.\w+", allInformationContact).Substring(3);
+            string notes = ConvectInformationDetails(@"\w+$|(0)\w+$", allInformationContact);
+
+            return new ContactData()
+            {
+                Fio = fio,
+                NickTiComAd = nickComTiAd,
+                Telephonehome = homeTelephone,
+                Telephonemobile = mobileTelephone,
+                Telephonework = workTelephone,
+                Telephonefax = faxTelephone,
+                AllEmails = emails,
+                Homepage = homepage,
+                Birthday = birthday,
+                Anniversary = anniversary,
+                Secondaryaddress = address2.Substring(0, address2.Length - 4),
+                Secondaryhome = home2Telephone,
+                Secondarynotes = notes
+            };
+        }
+
+        public string ConvectInformationDetails(string pattern, string content)
+        {
+            return new Regex(pattern).Match(content).Value;
         }
     }
 }

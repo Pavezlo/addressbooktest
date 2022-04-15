@@ -12,7 +12,7 @@ namespace WebAddressbookTests
         {
             
             ContactData contactData = new ContactData("Gary","Oldman","Newman","zzz");
-            contactData.Address = "st. Pushkina";
+            contactData.Address = "Pushkinaga";
             List<ContactData> oldContact = applicationManager.Contact.GetContactList();
             applicationManager.Contact.Create(contactData);
             Assert.AreEqual(oldContact.Count + 1, applicationManager.Contact.GetContactCount());

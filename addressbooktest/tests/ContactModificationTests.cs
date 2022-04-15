@@ -15,7 +15,7 @@ namespace WebAddressbookTests
                 applicationManager.Contact.Create(contactData1);
             }
             ContactData contactData2 = new ContactData("1", "1", "1", "zzz");
-            contactData2.Address = "st. Pushkina da";
+            contactData2.Address = "Pushkinada";
 
             List<ContactData> oldContact = applicationManager.Contact.GetContactList();
             ContactData oldData = oldContact[0];

@@ -95,6 +95,10 @@ namespace WebAddressbookTests
             this.birthdayyear = birthdayyear;
         }
 
+        public ContactData()
+        {
+        }
+
         public string Firstname { get; set; }
 
         public string Midlename
@@ -219,7 +223,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(Telephonehome) + CleanUp(Telephonemobile) + CleanUp(Telephonework) + CleanUp(Secondaryhome)).Trim();
+                    return (CleanUpRn(Telephonehome) + CleanUpRn(Telephonemobile) + CleanUpRn(Telephonework) + CleanUpRn(Secondaryhome)).Trim();
                 }
             }
             set
@@ -229,7 +233,7 @@ namespace WebAddressbookTests
         
         }
 
-        private string CleanUp(string phone)
+        private string CleanUpRn(string phone)
         {
             if (phone == null || phone == "")
             {
@@ -286,7 +290,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(Email) + CleanUp(Email2) + CleanUp(Email3)).Trim();
+                    return (CleanUpRn(Email) + CleanUpRn(Email2) + CleanUpRn(Email3)).Trim();
                 }
             }
             set
@@ -429,5 +433,146 @@ namespace WebAddressbookTests
         }
 
         public string Id { get; set; }
+
+        private string fio;
+
+        public string Fio
+        {
+            get
+            {
+                if (fio != null)
+                {
+                    return fio;
+                }
+                else
+                {
+                    return CleanUpSpace(Firstname) + CleanUpSpace(Midlename) +CleanUp(Lastname);
+                }
+            }
+            set
+            {
+                fio = value;
+            }
+        }
+
+        private string CleanUpSpace(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "";
+            }
+            return Regex.Replace(x, "[ -()\"]", "")+ " ";
+        }
+        
+        private string CleanUp(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "";
+            }
+            return Regex.Replace(x, "[ -()\"]", "");
+        }
+
+        private string nickComTiAd;
+
+        public string NickTiComAd
+        {
+            get
+            {
+                if (nickComTiAd != null)
+                {
+                    return nickComTiAd;
+                }
+                else
+                {
+                    return "\r\n"+ CleanUpRn(Nickname) + CleanUpRn(Title) + CleanUpRn(Company) + CleanUpRn(Address);
+                }
+            }
+            set
+            {
+                nickComTiAd = value;
+            }
+        }
+
+        private string emails;
+
+        public string Emails
+        {
+            get
+            {
+                if (emails != null)
+                {
+                    return emails;
+                }
+                else
+                {
+                    return CleanUp(Email) + CleanUp(Email2) + CleanUp(Email3);
+                }
+            }
+            set
+            {
+                emails = value;
+            }
+        }
+
+        private string birthday;
+
+        public string Birthday
+        {
+            get
+            {
+                if (birthday != null)
+                {
+                    return birthday;
+                }
+                else
+                {
+                    return "Birthday " + CleanUpBirthdayDay(Birthdayday) + CleanUpBirthdayMounth(Birthdaymonth) + CleanUp(Birthdayyear);
+                }
+            }
+            set
+            {
+                birthday = value;
+            }
+        }
+
+        private string anniversary;
+
+        public string Anniversary
+        {
+            get
+            {
+                if (anniversary != null)
+                {
+                    return anniversary;
+                }
+                else
+                {
+                    return ("Anniversary " + CleanUpBirthdayDay(Anniversaryday) + CleanUpBirthdayMounth(Anniversarymonth) + CleanUp(Anniversaryyear));
+                }
+            }
+            set
+            {
+                anniversary = value;
+            }
+        }
+
+        private string CleanUpBirthdayDay(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "";
+            }
+            return Regex.Replace(x, "[ -()\"]", "") + ". ";
+        }
+
+        private string CleanUpBirthdayMounth(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "";
+            }
+            return Regex.Replace(x, "[ -()\"]", "") + " ";
+        }
     }
 }
