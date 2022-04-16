@@ -5,31 +5,8 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-
-        private string midlename = "ab";
-        private string nickname = "noname";
-        private string title = "title";
-        private string company = "gmail";
-        private string address = "internet";
-        private string telephonehome = "515";
-        private string telephonemobile = "8800553535";
-        private string telephonework = "565";
-        private string telephonefax = "5151";
-        private string email = "gu@gu.gu";
-        private string email2 = "shu@shu.su";
-        private string email3 = "tu@tu.tu";
-        private string homepage = "homepage.ho";
-        private string birthdayday = "1";
-        private string birthdaymonth = "January";
-        private string birthdayyear = "2022";
-        private string anniversaryday = "1";
-        private string anniversarymonth = "January";
-        private string anniversaryyear = "2022";
-        private string group = "aaa";
-        private string secondaryaddress = "aaa";
-        private string secondaryhome = "bbb";
-        private string secondarynotes = "ccc";
-
+        #region Settings
+        
         public bool Equals(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -70,7 +47,15 @@ namespace WebAddressbookTests
                 return lastCompare;
             }
         }
+        
+        #endregion
 
+        #region Constructor
+        
+        public ContactData()
+        {
+        }
+        
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
@@ -80,137 +65,101 @@ namespace WebAddressbookTests
         public ContactData(string firstname, string midlename, string lastname, string group)
         {
             Firstname = firstname;
-            this.midlename = midlename;
+            Midlename = midlename;
             Lastname = lastname;
-            this.group = group;
+            Group = group;
         }
 
         public ContactData(string firstname, string midlename, string lastname, string birthdayday, string birthdaymonth, string birthdayyear)
         {
             Firstname = firstname;
-            this.midlename = midlename;
+            Midlename = midlename;
             Lastname = lastname;
-            this.birthdayday = birthdayday;
-            this.birthdaymonth = birthdaymonth;
-            this.birthdayyear = birthdayyear;
+            Birthdayday = birthdayday;
+            Birthdaymonth = birthdaymonth;
+            Birthdayyear = birthdayyear;
         }
+        
+        #endregion
 
-        public ContactData()
-        {
-        }
-
+        #region InformationContact
         public string Firstname { get; set; }
 
-        public string Midlename
-        {
-            get
-            {
-                return midlename;
-            }
-            set
-            {
-                midlename = value;
-            }
-        }
-
+        public string Midlename { get; set; }
+        
         public string Lastname { get; set; }
 
-        public string Nickname
+        public string Nickname { get; set; }
+        
+        public string Title { get; set; }
+
+        public string Company { get; set; }
+
+        public string Address { get; set; }
+
+        public string Telephonehome { get; set; }
+
+        public string Telephonemobile { get; set; }
+
+        public string Telephonework { get; set; }
+
+        public string Telephonefax { get; set; }
+
+        public string Email { get; set; }
+
+        public string Email2 { get; set; }
+
+        public string Email3 { get; set; }
+        
+        public string Homepage { get; set; }
+
+        public string Birthdayday { get; set; }
+
+        public string Birthdaymonth { get; set; }
+
+        public string Birthdayyear { get; set; }
+        
+        public string Anniversaryday { get; set; }
+
+        public string Anniversarymonth { get; set; }
+
+        public string Anniversaryyear { get; set; }
+
+        public string Group { get; set; }
+
+        public string Secondaryaddress { get; set; }
+
+        public string Secondaryhome { get; set; }
+
+        public string Secondarynotes { get; set; }
+
+        public string Id { get; set; }
+        
+        #endregion
+
+        #region InformationContactTable
+        
+        private string allEmails;
+
+        public string AllEmails
         {
             get
             {
-                return nickname;
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return (CleanUpRn(Email) + CleanUpRn(Email2) + CleanUpRn(Email3)).Trim();
+                }
             }
             set
             {
-                nickname = value;
+                allEmails = value;
             }
         }
-
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
-            set
-            {
-                title = value;
-            }
-        }
-
-        public string Company
-        {
-            get
-            {
-                return company;
-            }
-            set
-            {
-                company = value;
-            }
-        }
-
-        public string Address
-        {
-            get
-            {
-                return address;
-            }
-            set
-            {
-                address = value;
-            }
-        }
-
-        public string Telephonehome
-        {
-            get
-            {
-                return telephonehome;
-            }
-            set
-            {
-                telephonehome = value;
-            }
-        }
-
-        public string Telephonemobile
-        {
-            get
-            {
-                return telephonemobile;
-            }
-            set
-            {
-                telephonemobile = value;
-            }
-        }
-
-        public string Telephonework
-        {
-            get
-            {
-                return telephonework;
-            }
-            set
-            {
-                telephonework = value;
-            }
-        }
-
-        public string Telephonefax
-        {
-            get
-            {
-                return telephonefax;
-            }
-            set
-            {
-                telephonefax = value;
-            }
-        }
-
+        
         private string allPhones;
 
         public string AllPhones 
@@ -232,238 +181,77 @@ namespace WebAddressbookTests
             }
         
         }
-
-        private string CleanUpRn(string phone)
-        {
-            if (phone == null || phone == "")
-            {
-                return "";
-            }
-            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
-        }
-
-        public string Email
-        {
-            get
-            {
-                return email;
-            }
-            set
-            {
-                email = value;
-            }
-        }
-
-        public string Email2
-        {
-            get
-            {
-                return email2;
-            }
-            set
-            {
-                email2 = value;
-            }
-        }
-
-        public string Email3
-        {
-            get
-            {
-                return email3;
-            }
-            set
-            {
-                email3 = value;
-            }
-        }
-
-        private string allEmails;
-
-        public string AllEmails
-        {
-            get
-            {
-                if (allEmails != null)
-                {
-                    return allEmails;
-                }
-                else
-                {
-                    return (CleanUpRn(Email) + CleanUpRn(Email2) + CleanUpRn(Email3)).Trim();
-                }
-            }
-            set
-            {
-                allEmails = value;
-            }
-        }
-
-        public string Homepage
-        {
-            get
-            {
-                return homepage;
-            }
-            set
-            {
-                homepage = value;
-            }
-        }
-
-        public string Birthdayday
-        {
-            get
-            {
-                return birthdayday;
-            }
-            set
-            {
-                birthdayday = value;
-            }
-        }
-
-        public string Birthdaymonth
-        {
-            get
-            {
-                return birthdaymonth;
-            }
-            set
-            {
-                birthdaymonth = value;
-            }
-        }
-
-        public string Birthdayyear
-        {
-            get
-            {
-                return birthdayyear;
-            }
-            set
-            {
-                birthdayyear = value;
-            }
-        }
-
-
-        public string Anniversaryday
-        {
-            get
-            {
-                return anniversaryday;
-            }
-            set
-            {
-                anniversaryday = value;
-            }
-        }
-
-        public string Anniversarymonth
-        {
-            get
-            {
-                return anniversarymonth;
-            }
-            set
-            {
-                anniversarymonth = value;
-            }
-        }
-
-        public string Anniversaryyear
-        {
-            get
-            {
-                return anniversaryyear;
-            }
-            set
-            {
-                anniversaryyear = value;
-            }
-        }
-
-        public string Group
-        {
-            get
-            {
-                return group;
-            }
-            set
-            {
-                group = value;
-            }
-        }
-
-        public string Secondaryaddress
-        {
-            get
-            {
-                return secondaryaddress;
-            }
-            set
-            {
-                secondaryaddress = value;
-            }
-        }
-
-        public string Secondaryhome
-        {
-            get
-            {
-                return secondaryhome;
-            }
-            set
-            {
-                secondaryhome = value;
-            }
-        }
-
-        public string Secondarynotes
-        {
-            get
-            {
-                return secondarynotes;
-            }
-            set
-            {
-                secondarynotes = value;
-            }
-        }
-
-        public string Id { get; set; }
-
-        private string fio;
-
-        public string Fio
-        {
-            get
-            {
-                if (fio != null)
-                {
-                    return fio;
-                }
-                else
-                {
-                    return CleanUpSpace(Firstname) + CleanUpSpace(Midlename) +CleanUp(Lastname);
-                }
-            }
-            set
-            {
-                fio = value;
-            }
-        }
-
-        private string CleanUpSpace(string x)
+        
+        private string CleanUpRn(string x)
         {
             if (x == null || x == "")
             {
                 return "";
             }
-            return Regex.Replace(x, "[ -()\"]", "")+ " ";
+            return Regex.Replace(x, "[ -()]", "") + "\r\n";
+        }
+
+        #endregion
+        
+        #region InformationContactDetails
+        
+        private string contactDetailsInformation;
+
+        public string ContactDetailsInformation
+        {
+            get
+            {
+                if (contactDetailsInformation != null)
+                {
+                    return contactDetailsInformation;
+                }
+                else
+                {
+                    return (CleanUpFirstname(Firstname) + CleanUpMidlename(Midlename) + CleanUpRn(Lastname) +
+                            PlusRnSecret(CleanUpRn(Nickname) + CleanUpRn(Title) + CleanUpRn(Company) + CleanUpRn(Address))+
+                            PlusRn(CleanUpTelephone(Telephonehome,"H: ") + CleanUpTelephone(Telephonemobile,"M: ") +CleanUpTelephone(Telephonework,"W: ") + CleanUpTelephone(Telephonefax,"F: ")) + 
+                            PlusRn(CleanUpRn(Email)+CleanUpRn(Email2)+CleanUpRn(Email3)+CleanUpTelephone(Homepage,"Homepage:\r\n"))+
+                            PlusRnSecret(CleanUpBirthAnnive(CleanUpBirthAnniverDay(Birthdayday,Birthdaymonth,Birthdayyear)+CleanUpMonth(Birthdaymonth)+CleanUpYear(Birthdayyear), "Birthday") + 
+                                         CleanUpBirthAnnive(CleanUpBirthAnniverDay(Anniversaryday,Anniversarymonth,Anniversaryyear)+CleanUpMonth(Anniversarymonth)+CleanUpYear(Anniversaryyear), "Anniversary"))+
+                            PlusRn(CleanUpRn(Secondaryaddress))+
+                            PlusRn(CleanUpTelephone(Secondaryhome,"P: "))+ CleanUp(Secondarynotes)).Trim();
+                }
+            }
+            set
+            {
+                contactDetailsInformation = value;
+            }
         }
         
+        //Вписывает firstname, оценивая есть ли midlename и lastname
+        private string CleanUpFirstname(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "";
+            }
+            if ((Midlename != null && Midlename != "") || (Lastname != null && Lastname != ""))
+            {
+                return Regex.Replace(x, "[ -()\"]", "")+ " ";
+            }
+            return Regex.Replace(x, "[ -()]", "") + "\r\n";
+        }
+        
+        //Вписывает midlename, оценивая есть ли lastname
+        private string CleanUpMidlename(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "";
+            }
+            if (Lastname != null && Lastname != "")
+            {
+                return Regex.Replace(x, "[ -()\"]", "") + " ";
+            }
+            return Regex.Replace(x, "[ -()]", "") + "\r\n";
+        }
+        
+        //Вписывает noties если есть
         private string CleanUp(string x)
         {
             if (x == null || x == "")
@@ -472,107 +260,93 @@ namespace WebAddressbookTests
             }
             return Regex.Replace(x, "[ -()\"]", "");
         }
-
-        private string nickComTiAd;
-
-        public string NickTiComAd
-        {
-            get
-            {
-                if (nickComTiAd != null)
-                {
-                    return nickComTiAd;
-                }
-                else
-                {
-                    return "\r\n"+ CleanUpRn(Nickname) + CleanUpRn(Title) + CleanUpRn(Company) + CleanUpRn(Address);
-                }
-            }
-            set
-            {
-                nickComTiAd = value;
-            }
-        }
-
-        private string emails;
-
-        public string Emails
-        {
-            get
-            {
-                if (emails != null)
-                {
-                    return emails;
-                }
-                else
-                {
-                    return CleanUp(Email) + CleanUp(Email2) + CleanUp(Email3);
-                }
-            }
-            set
-            {
-                emails = value;
-            }
-        }
-
-        private string birthday;
-
-        public string Birthday
-        {
-            get
-            {
-                if (birthday != null)
-                {
-                    return birthday;
-                }
-                else
-                {
-                    return "Birthday " + CleanUpBirthdayDay(Birthdayday) + CleanUpBirthdayMounth(Birthdaymonth) + CleanUp(Birthdayyear);
-                }
-            }
-            set
-            {
-                birthday = value;
-            }
-        }
-
-        private string anniversary;
-
-        public string Anniversary
-        {
-            get
-            {
-                if (anniversary != null)
-                {
-                    return anniversary;
-                }
-                else
-                {
-                    return ("Anniversary " + CleanUpBirthdayDay(Anniversaryday) + CleanUpBirthdayMounth(Anniversarymonth) + CleanUp(Anniversaryyear));
-                }
-            }
-            set
-            {
-                anniversary = value;
-            }
-        }
-
-        private string CleanUpBirthdayDay(string x)
+        
+        //вписывает Telephone и homepage
+        private string CleanUpTelephone(string x,string telephoneName)
         {
             if (x == null || x == "")
             {
                 return "";
             }
-            return Regex.Replace(x, "[ -()\"]", "") + ". ";
+            return telephoneName +Regex.Replace(x, "[ -()\"]", "") + "\r\n";
         }
 
-        private string CleanUpBirthdayMounth(string x)
+        //вписывает наименование Birthday и Anniversary если есть хоть какая та инфа по ним
+        private string CleanUpBirthAnnive(string x, string firstworld)
         {
             if (x == null || x == "")
+            {
+                return "";
+            }
+            return String.Format("{0} {1}\r\n",firstworld, x);
+        }
+        
+        //вписывает день с оценкой есть ли месяц и год
+        private string CleanUpBirthAnniverDay(string x, string y, string z)
+        {
+            if (x == null || x == "" || x=="-")
+            {
+                return "";
+            }
+
+            if (y != null && y != "" && y!="-" || z != null && z != "")
+            {
+                return Regex.Replace(x, "[ -()\"]", "") + ". ";
+            }
+            return Regex.Replace(x, "[ -()\"]", "") + ".";
+        }
+        
+        //выписывает месяц др
+        private string CleanUpMonth(string x)
+        {
+            if (x == null || x == "" || x=="-")
             {
                 return "";
             }
             return Regex.Replace(x, "[ -()\"]", "") + " ";
         }
+        
+        //выссчитывает количество лет и вписывает год др
+        private string CleanUpYear(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "";
+            }
+            return Regex.Replace(x, "[ -()\"]", "") + String.Format(" ({0})",2022-Convert.ToInt32(x));
+        }
+        
+        //прибавляет rn где нужно
+        private string PlusRn(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "";
+            }
+            return x + "\r\n";
+        }
+        
+        //прибавляет rn где нужно
+        private string PlusRnFIO(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "";
+            }
+            return x + "\r\n";
+        }
+        
+        //прибавляет rn где нудно, т.к. при отсутствии инфы nr появляется
+        private string PlusRnSecret(string x)
+        {
+            if (x == null || x == "")
+            {
+                return "\r\n";
+            }
+            return x + "\r\n";
+        }
+        
+        #endregion
+
     }
 }

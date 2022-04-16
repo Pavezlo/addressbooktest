@@ -18,7 +18,7 @@ namespace WebAddressbookTests
             InitNewContact();
             EditContactInformation(contactData);
             ClickEnterContact();
-            ClickGoToHomePage();
+            ClickLogoAddressBook();
             return this;
         }
 
@@ -35,7 +35,7 @@ namespace WebAddressbookTests
             ClickEditContact(a);
             ModificationContactInformation(contactData);
             ClickModificationContact();
-            ClickGoToHomePage();
+            ClickLogoAddressBook();
             return this;
         }
 
@@ -145,12 +145,6 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Update'][2]")).Click();
             contactCache = null;
-            return this;
-        }
-
-        public ContactHelper ClickGoToHomePage()
-        {
-            driver.FindElement(By.XPath("//a[text()='home page']")).Click();
             return this;
         }
 
@@ -346,45 +340,10 @@ namespace WebAddressbookTests
             ClickDetailsContact(index);
             string allInformationContact = driver.FindElement(By.Id("content")).Text.Trim();
 
-            string fio = ConvectInformationDetails(@"^\w+.\w+.\w+|^\w+.\w+|^\w+", allInformationContact);
-            //nickname,company,title,address
-            string nickComTiAd = ConvectInformationDetails(@"\r\n\w+\r\n\w+\r\n\w+\r\n\w+\r\n", allInformationContact);
-
-            string homeTelephone = ConvectInformationDetails(@"H:.\w+", allInformationContact).Substring(3);
-            string mobileTelephone = ConvectInformationDetails(@"M:.\w+", allInformationContact).Substring(3);
-            string workTelephone = ConvectInformationDetails(@"W:.\w+", allInformationContact).Substring(3);
-            string faxTelephone = ConvectInformationDetails(@"F:.\w+", allInformationContact).Substring(3);
-
-            string emails = ConvectInformationDetails(@"\w+\@\w+.\w+\r\n\w+\@\w+.\w+\r\n\w+\@\w+.\w+\r\n|\w+\@\w+.\w+\r\n\w+\@\w+.\w+\r\n|\w+\@\w+.\w+\r\n", allInformationContact);
-            string homepage = ConvectInformationDetails(@"Homepage:\r\n\w+.\w+", allInformationContact).Substring(11);
-            string birthday = ConvectInformationDetails(@"Birthday.\d+. \w+ \d+", allInformationContact);
-            string anniversary = ConvectInformationDetails(@"Anniversary.\d+. \w+ \d+", allInformationContact);
-
-            string address2 = ConvectInformationDetails(@"\r\n\r\n\w+\r\n\r\n", allInformationContact).Substring(4);
-            string home2Telephone = ConvectInformationDetails(@"P:.\w+", allInformationContact).Substring(3);
-            string notes = ConvectInformationDetails(@"\w+$", allInformationContact);
-
             return new ContactData()
             {
-                Fio = fio,
-                NickTiComAd = nickComTiAd,
-                Telephonehome = homeTelephone,
-                Telephonemobile = mobileTelephone,
-                Telephonework = workTelephone,
-                Telephonefax = faxTelephone,
-                AllEmails = emails,
-                Homepage = homepage,
-                Birthday = birthday,
-                Anniversary = anniversary,
-                Secondaryaddress = address2.Substring(0, address2.Length - 4),
-                Secondaryhome = home2Telephone,
-                Secondarynotes = notes
+                ContactDetailsInformation = allInformationContact
             };
-        }
-
-        public string ConvectInformationDetails(string pattern, string content)
-        {
-            return new Regex(pattern).Match(content).Value;
         }
     }
 }
