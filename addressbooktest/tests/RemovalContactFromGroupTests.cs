@@ -9,14 +9,20 @@ namespace WebAddressbookTests
         [Test]
         public void TestRemovalContactGroup()
         {
+            if (GroupData.GetAll()[0].GetContacts().Count == 0)
+            {
+                applicationManager.Contact.AddContactToGroup(ContactData.GetAll()[0], GroupData.GetAll()[0]);
+            }
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldlist = group.GetContacts();
-            ContactData contact = ContactData.GetAll().Except(oldlist).First();
+            ContactData contact = oldlist.First();
 
             applicationManager.Contact.RemovalContactFromGroup(contact, group);
 
+            Assert.AreEqual(oldlist.Count - 1, GroupData.GetAll()[0].GetContacts().Count);
+            
             List<ContactData> newList = group.GetContacts();
-            oldlist.Add(contact);
+            oldlist.RemoveAt(0);
             newList.Sort();
             oldlist.Sort();
             Assert.AreEqual(oldlist,newList);
