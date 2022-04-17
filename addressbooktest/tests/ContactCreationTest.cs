@@ -8,7 +8,7 @@ namespace WebAddressbookTests
 
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactTestBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
@@ -36,14 +36,14 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"contacts.json"));
         }
         
-        [Test, TestCaseSource("ContactDataFromJsonFile")]
+        [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void ContactCreationTest(ContactData contactData)
         {
-            List<ContactData> oldContact = applicationManager.Contact.GetContactList();
+            List<ContactData> oldContact = ContactData.GetAll();
             applicationManager.Contact.Create(contactData);
             Assert.AreEqual(oldContact.Count + 1, applicationManager.Contact.GetContactCount());
 
-            List<ContactData> newContact = applicationManager.Contact.GetContactList();
+            List<ContactData> newContact = ContactData.GetAll();
             oldContact.Add(contactData);
             oldContact.Sort();
             newContact.Sort();

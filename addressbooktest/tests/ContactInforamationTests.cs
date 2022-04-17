@@ -8,13 +8,13 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactInformationTests : AuthTestBase
+    public class ContactInformationTests : ContactTestBase
     {
         [Test]
         public void TestContactInformation()
         {
             ContactData fromTable = applicationManager.Contact.GetContactInformationFromTable(0);
-            ContactData fromForm = applicationManager.Contact.GetContactInformationFromEditFormForTabel(0);
+            ContactData fromForm = applicationManager.Contact.GetContactInformationFromEditFormForTable(0);
 
             // verification
             Assert.AreEqual(fromTable, fromForm);

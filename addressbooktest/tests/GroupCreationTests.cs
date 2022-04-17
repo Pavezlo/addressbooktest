@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Serialization;
@@ -9,7 +11,7 @@ using Newtonsoft.Json;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -39,11 +41,11 @@ namespace WebAddressbookTests
         [Test,TestCaseSource("GroupDataFromXmlFile")]
         public void GroupCreationTest(GroupData group)
         {
-            List<GroupData> oldGroups = applicationManager.Group.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             applicationManager.Group.Create(group);
             Assert.AreEqual(oldGroups.Count + 1, applicationManager.Group.GetGroupCount());
 
-            List<GroupData> newGroups = applicationManager.Group.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
@@ -66,6 +68,15 @@ namespace WebAddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            foreach (ContactData contact in ContactData.GetAll())
+            {
+                System.Console.Out.WriteLine(contact.Deprecated);
+            }
         }
     }
 }

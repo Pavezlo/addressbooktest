@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+    [Table(Name="addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         #region Settings
@@ -83,57 +87,94 @@ namespace WebAddressbookTests
         #endregion
 
         #region InformationContact
+        
+        [Column(Name="firstname")]
         public string Firstname { get; set; }
 
+        [Column(Name="middlename")]
         public string Midlename { get; set; }
         
+        [Column(Name="lastname")]
         public string Lastname { get; set; }
 
+        [Column(Name="nickname")]
         public string Nickname { get; set; }
         
+        [Column(Name="title")]
         public string Title { get; set; }
 
+        [Column(Name="Company")]
         public string Company { get; set; }
 
+        [Column(Name="address")]
         public string Address { get; set; }
 
+        [Column(Name="home")]
         public string Telephonehome { get; set; }
 
+        [Column(Name="mobile")]
         public string Telephonemobile { get; set; }
 
+        [Column(Name="work")]
         public string Telephonework { get; set; }
 
+        [Column(Name="fax")]
         public string Telephonefax { get; set; }
 
+        [Column(Name="email")]
         public string Email { get; set; }
 
+        [Column(Name="email2")]
         public string Email2 { get; set; }
 
+        [Column(Name="email3")]
         public string Email3 { get; set; }
         
+        [Column(Name="homepage")]
         public string Homepage { get; set; }
 
+        [Column(Name="bday")]
         public string Birthdayday { get; set; }
 
+        [Column(Name="bmonth")]
         public string Birthdaymonth { get; set; }
 
+        [Column(Name="byear")]
         public string Birthdayyear { get; set; }
         
+        [Column(Name="aday")]
         public string Anniversaryday { get; set; }
 
+        [Column(Name="amonth")]
         public string Anniversarymonth { get; set; }
 
+        [Column(Name="ayear")]
         public string Anniversaryyear { get; set; }
-
+        
         public string Group { get; set; }
 
+        [Column(Name="address2")]
         public string Secondaryaddress { get; set; }
 
+        [Column(Name="phone2")]
         public string Secondaryhome { get; set; }
 
+        [Column(Name="notes")]
         public string Secondarynotes { get; set; }
 
+        [Column(Name="id"),PrimaryKey,Identity]
         public string Id { get; set; }
+        
+        [Column(Name="deprecated")]
+        public string Deprecated { get; set; }
+        
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts.Where(x=>x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
+            }
+        }
         
         #endregion
 
@@ -211,8 +252,8 @@ namespace WebAddressbookTests
                             PlusRnSecret(CleanUpRn(Nickname) + CleanUpRn(Title) + CleanUpRn(Company) + CleanUpRn(Address))+
                             PlusRn(CleanUpTelephone(Telephonehome,"H: ") + CleanUpTelephone(Telephonemobile,"M: ") +CleanUpTelephone(Telephonework,"W: ") + CleanUpTelephone(Telephonefax,"F: ")) + 
                             PlusRn(CleanUpRn(Email)+CleanUpRn(Email2)+CleanUpRn(Email3)+CleanUpTelephone(Homepage,"Homepage:\r\n"))+
-                            PlusRnSecret(CleanUpBirthAnnive(CleanUpBirthAnniverDay(Birthdayday,Birthdaymonth,Birthdayyear)+CleanUpMonth(Birthdaymonth)+CleanUpYear(Birthdayyear), "Birthday") + 
-                                         CleanUpBirthAnnive(CleanUpBirthAnniverDay(Anniversaryday,Anniversarymonth,Anniversaryyear)+CleanUpMonth(Anniversarymonth)+CleanUpYear(Anniversaryyear), "Anniversary"))+
+                            PlusRnSecret(CleanUpBirthAnnive(CleanUpBirthAnniverDay(Birthdayday,Birthdaymonth,Birthdayyear)+CleanUpMonth(Birthdaymonth,Birthdayyear)+CleanUpYear(Birthdayyear), "Birthday") + 
+                                         CleanUpBirthAnnive(CleanUpBirthAnniverDay(Anniversaryday,Anniversarymonth,Anniversaryyear)+CleanUpMonth(Anniversarymonth,Anniversaryyear)+CleanUpYear(Anniversaryyear), "Anniversary"))+
                             PlusRn(CleanUpRn(Secondaryaddress))+
                             PlusRn(CleanUpTelephone(Secondaryhome,"P: "))+ CleanUp(Secondarynotes)).Trim();
                 }
@@ -297,13 +338,19 @@ namespace WebAddressbookTests
         }
         
         //выписывает месяц др
-        private string CleanUpMonth(string x)
+        private string CleanUpMonth(string x, string y)
         {
             if (x == null || x == "" || x=="-")
             {
                 return "";
             }
-            return Regex.Replace(x, "[ -()\"]", "") + " ";
+
+            if (y != null && y != "" && y != "-")
+            {
+                return Regex.Replace(x, "[ -()\"]", "") + " ";
+            }
+
+            return Regex.Replace(x, "[ -()\"]", "");
         }
         
         //выссчитывает количество лет и вписывает год др
