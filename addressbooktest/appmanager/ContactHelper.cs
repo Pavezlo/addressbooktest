@@ -355,12 +355,12 @@ namespace WebAddressbookTests
             };
         }
 
-        public void AddContactToGroup(ContactData contact, GroupData @group)
+        public void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
             CleareGroupFilter();
             SelectContact(contact.Id);
-            SelectGroupToAdd(group.Name);
+            SelectGroupToAdd(group.Id);
             CommitAddingContactToGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d =>
                 d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
@@ -378,7 +378,7 @@ namespace WebAddressbookTests
 
         private void SelectGroupToAdd(string groupName)
         {
-            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(groupName);
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByValue(groupName);
         }
         
         private void CommitAddingContactToGroup()
@@ -390,22 +390,41 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToHomePage();
             CleareGroupFilter();
-            SelectGroupToContactPage(group.Name);
+            SelectGroupToContactPage(group.Id);
             SelectContact(contact.Id);
             CommitRemovalContactToGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d =>
                 d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
         
-        private void SelectGroupToContactPage(string groupName)
+        public void SelectGroupToContactPage(string groupId)
         {
-            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(groupName);
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByValue(groupId);
         }
         
-        private void CommitRemovalContactToGroup()
+        public void CommitRemovalContactToGroup()
         {
             driver.FindElement(By.Name("remove")).Click();
         }
 
+        public bool AllGroupFullContainContacts(List<GroupData> groups, List<ContactData> contacts)
+        {
+            foreach (GroupData group in groups)
+            {
+                List<ContactData> contactInGroup = group.GetContacts();
+                if (contactInGroup.Count != contacts.Count) return false;
+            }
+            return true;
+        }
+        
+        public bool AllGroupNotContainContacts(List<GroupData> groups)
+        {
+            foreach (GroupData group in groups)
+            {
+                List<ContactData> contactInGroup = group.GetContacts();
+                if (contactInGroup.Count != 0) return false;
+            }
+            return true;
+        }
     }
 }

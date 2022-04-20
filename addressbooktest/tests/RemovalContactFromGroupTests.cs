@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -9,23 +10,52 @@ namespace WebAddressbookTests
         [Test]
         public void TestRemovalContactGroup()
         {
-            if (GroupData.GetAll()[0].GetContacts().Count == 0)
+            if (GroupData.GetAll().Count == 0)
             {
-                applicationManager.Contact.AddContactToGroup(ContactData.GetAll()[0], GroupData.GetAll()[0]);
+                applicationManager.Group.Create(new GroupData()
+                {
+                    Name = "hafa"
+                });
             }
-            GroupData group = GroupData.GetAll()[0];
-            List<ContactData> oldlist = group.GetContacts();
-            ContactData contact = oldlist.First();
 
-            applicationManager.Contact.RemovalContactFromGroup(contact, group);
+            if (ContactData.GetAll().Count == 0)
+            {
+                applicationManager.Contact.Create(new ContactData()
+                {
+                    Firstname = "afasdsa",
+                    Lastname = "dffgfdgd"
+                });
+            }
 
-            Assert.AreEqual(oldlist.Count - 1, GroupData.GetAll()[0].GetContacts().Count);
+            List<GroupData> groups = GroupData.GetAll();
+
+            if (applicationManager.Contact.AllGroupNotContainContacts(groups))
+            {
+                ContactData contact = ContactData.GetAll().First();
+                applicationManager.Contact.AddContactToGroup(contact, groups[0]);
+            }
+
+            foreach (GroupData group in groups)
+            {
+                List<ContactData> contactInGroup = group.GetContacts();
+                if (contactInGroup.Count > 0)
+                {
+                    contactInGroup.Sort();
+                    List<ContactData> contactInGroup1 = group.GetContacts();
+                    foreach (ContactData contactG in contactInGroup1)
+                    {
+                        applicationManager.Contact.RemovalContactFromGroup(contactG, group);
+                        contactInGroup.Remove(contactG);
+                    }
+
+                    List<ContactData> newList = group.GetContacts();
+                    contactInGroup.Sort();
+                    newList.Sort();
+                    Assert.AreEqual(contactInGroup, newList);
+                }
+            }
             
-            List<ContactData> newList = group.GetContacts();
-            oldlist.RemoveAt(0);
-            newList.Sort();
-            oldlist.Sort();
-            Assert.AreEqual(oldlist,newList);
+            Assert.True(applicationManager.Contact.AllGroupNotContainContacts(GroupData.GetAll()));
         }
     }
 }
